@@ -78,3 +78,9 @@ chmod +x scripts/e2e-ci.sh
 
 
 ###### This project is licensed under the MIT Open Source License
+
+
+### Analysis of the problem (What are you actually trying to solve) (5%)
+There is a lack of automation in terms of testing, building and deploying the solution. Factors such as bug-fixes and adding new features to production, should have an automated process to reduce the unnecessary manual workload needed on several teams in the company.
+
+### Explain and Justify the solution (How does the solution work) (10%)
