@@ -84,3 +84,4 @@ chmod +x scripts/e2e-ci.sh
 There is a lack of automation in terms of testing, building and deploying the solution. Factors such as bug-fixes and adding new features to production, should have an automated process to reduce the unnecessary manual workload needed on several teams in the company.
 
 ### Explain and Justify the solution (How does the solution work) (10%)
+The solution will work around automating the process of building and deploying the solution so it is easier for the developers to get features tested, fixed and implemented without the need of the lead developer being around all the time to get such tasks done. The solution will ensure that every piece of code that goes out of development for testing and bug checks via unit testing. 
