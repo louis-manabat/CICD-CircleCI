@@ -78,3 +78,10 @@ chmod +x scripts/e2e-ci.sh
 
 
 ###### This project is licensed under the MIT Open Source License
+
+
+### Analysis of the problem (What are you actually trying to solve) (5%)
+There is a lack of automation in terms of testing, building and deploying the solution. Factors such as bug-fixes and adding new features to production, should have an automated process to reduce the unnecessary manual workload needed on several teams in the company.
+
+### Explain and Justify the solution (How does the solution work) (10%)
+The solution will work around automating the process of building and deploying the solution so it is easier for the developers to get features tested, fixed and implemented without the need of the lead developer being around all the time to get such tasks done. The solution will ensure that every piece of code that goes out of development for testing and bug checks via unit testing. Code analysis will also be ran to ensure that the code adheres to the coding rules using the given language(s). Code testing will conducted as well to make sure that there aren't any issues with the solution once it is deployed. Once all of that is done, an artefact will be created, which will be used as the deployable product to AWS.
