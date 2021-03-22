@@ -4,10 +4,10 @@ commands:
   install_deps:
     steps:
       - run:
-        name: Install Deps
-        command: |
-          cd src/
-          npm install --prefix /src
+          name: Install Deps
+          command: |
+            cd src/
+            npm install --prefix /src
 
 jobs:
   ci-build:
