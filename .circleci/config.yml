@@ -1,11 +1,21 @@
 version: 2.1
 
+commands:
+  install_deps:
+    steps:
+      - run:
+        name: Install Deps
+        command: |
+          cd src/
+          npm install --prefix /src
+
 jobs:
   ci-build:
     docker:
       - image: circleci/node:lts
     steps:
       - checkout
+      - install_deps
 
 workflows:
   build-and-packge:
