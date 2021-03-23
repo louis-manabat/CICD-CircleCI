@@ -25,6 +25,3 @@ workflows:
   build-and-package:
     jobs:
       - ci-build
-      - linting:
-          requires:
-            - ci-build
