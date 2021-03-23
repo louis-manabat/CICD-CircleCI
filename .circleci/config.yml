@@ -6,7 +6,6 @@ commands:
       - run:
           name: Install Deps
           command: |
-            cd src/
             npm install
             npm install --prefix src/
 
