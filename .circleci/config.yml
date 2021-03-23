@@ -20,7 +20,7 @@ jobs:
           name: Linting
           command: |
             cd src
-            npm run test-linting
+            npm run test-lint
 
 workflows:
   build-and-package:
