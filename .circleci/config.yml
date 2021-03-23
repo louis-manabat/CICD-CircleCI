@@ -16,16 +16,10 @@ jobs:
     steps:
       - checkout
       - install_deps
-  linting:
-    docker:
-      - image: circleci/node:lts
-    steps:
-    - checkout
-    - run:
-        name: Linting
-        command: |
-          cd src/
-          npm run test-lint
+      - run:
+          name: Linting
+          command: |
+            npm run test-linting
 
 workflows:
   build-and-package:
