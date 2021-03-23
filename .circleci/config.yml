@@ -31,6 +31,23 @@ jobs:
       - store_test_results:
           path: testing-output
 
+  integratation-testing:
+    docker:
+      - image: circleci/node:lts
+      - image: mongo:4.0
+    environment:
+      JEST_JUNIT_OUTPUT_DIR: testing-output
+    steps:
+      - checkout
+      - install_deps
+      - run:
+          name: Run Integratation Testing
+          command: |
+            cd src
+            npm run test-integration
+      - store_test_results:
+          path: testing-output
+
 workflows:
   build-and-package:
     jobs:
