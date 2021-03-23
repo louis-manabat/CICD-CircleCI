@@ -8,7 +8,7 @@ commands:
           command: |
             cd src/
             npm install
-            npm install --prefix /src
+            npm install --prefix src/
 
 jobs:
   ci-build:
