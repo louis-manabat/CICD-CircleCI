@@ -1,13 +1,28 @@
 version: 2.1
 
+commands:
+  install_deps:
+    steps:
+      - run:
+          name: Install Deps
+          command: |
+            cd src/
+            npm install
+
 jobs:
   ci-build:
     docker:
       - image: circleci/node:lts
     steps:
       - checkout
+      - install_deps
+      - run:
+          name: Linting
+          command: |
+            cd src
+            npm run test-lint
 
 workflows:
-  build-and-packge:
+  build-and-package:
     jobs:
       - ci-build
