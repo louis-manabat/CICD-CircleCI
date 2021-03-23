@@ -52,3 +52,4 @@ workflows:
   build-and-package:
     jobs:
       - ci-build
+      - integratation-testing
