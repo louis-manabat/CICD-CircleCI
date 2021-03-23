@@ -6,7 +6,6 @@ commands:
       - run:
           name: Install Deps
           command: |
-            npm install
             npm install --prefix src/
 
 jobs:
@@ -24,6 +23,7 @@ jobs:
     - run:
         name: Linting
         command: |
+          cd src/
           npm run test-lint
 
 workflows:
