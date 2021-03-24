@@ -30,7 +30,7 @@ jobs:
           command: |
             bash <(curl -s https://codecov.io/bash)
       - store_test_results:
-          path: src/test-results
+          path: src/test-results/
 
   integratation-testing:
     docker:
