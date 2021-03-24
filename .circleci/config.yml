@@ -28,6 +28,10 @@ jobs:
           command: |
             cd src
             npm run test-unit
+      - run:
+          name: Code Coverage
+          command: |
+            bash <(curl -s https://codecov.io/bash)
       - store_test_results:
           path: testing-output
 
