@@ -25,7 +25,7 @@ jobs:
       - run:
           name: Unit Tests
           command: |
-            npm run test-unit --prefix src/
+            npm run test-unit --prefix src/ --destination src/test-results
       - run:
           name: Code Coverage
           command: |
