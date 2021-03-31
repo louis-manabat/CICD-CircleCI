@@ -39,13 +39,19 @@ jobs:
       - checkout
       - install_deps
       - run:
-          name: Install SAST Tool and Deps
+          name: Install Deps and SAST Tool (NJS)
           command: |
             sudo apt update -y
             sudo apt upgrade -y
             sudo apt install python3-pip
             pip3 install nodejsscan
-
+    - run:
+          name: Running SAST Tool
+          command: |
+            nodejsscan -d . -o src/sast-output.json
+    - store_artifacts:
+        path: src/sast-output.json
+      
   integratation-testing:
     docker:
       - image: circleci/node:lts
