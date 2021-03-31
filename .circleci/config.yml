@@ -74,10 +74,10 @@ workflows:
   build-and-package:
     jobs:
       - ci-build
-      - sast
+      - sast:
           requires:
             - ci-build
-      - integratation-testing
+      - integratation-testing:
           requires:
             - ci-build
             - sast
