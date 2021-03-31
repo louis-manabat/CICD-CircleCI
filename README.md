@@ -1,12 +1,11 @@
 ## Student: Louis Manabat
-## ID: s3719633
+**ID: s3719633**
 
 ### Analysis of the problem (What are you actually trying to solve) (5%)
 There is a lack of automation in terms of testing, building and deploying the solution. Factors such as bug-fixes and adding new features to production, should have an automated process to reduce the unnecessary manual workload needed on several teams in the company.
 
 ### Explain and Justify the solution (How does the solution work) (10%)
-The solution will work around automating the process of building and deploying the solution so it is easier for the developers to get features tested, fixed and implemented without the need of the lead developer being around all the time to get such tasks done. The solution will ensure that every piece of code that goes out of development for testing and bug checks via unit testing. Code analysis will also be ran to ensure that the code adheres to the coding rules using the given language(s). Code testing will conducted as well to make sure that there aren't any issues with the solution once it is deployed. Once all of that is done, an artefact will be created, which will be used as the deployable product to AWS.
-
+The solution runs code testing by both checking the functionality of the code (via pre-written unit testing) and the structuring of the code (style/formatting). They will be checked to make sure the it is up to standard prior to deployment. Integration testing between the MongoDB database and the application will be ran to ensure that there aren't any errors when doing tasks such as registering a new user or logging in. A secuity check will be ran during any CI run in the pipeline, to ensure there are no vulnerabilities in the application. Assuming the application does have a security risk, it will kill the pipeline completely. This means that the solution cannot be deployed in its currrent state, and will need to be checked for what the security error is, and potentially replace such modules with with an alternative in the event that does happen. Once all the above has been completed, it will be pulled into the master branch (by at this point, should've passed all the testing in the other branches), where it will pack the application and get it ready for deployment.
 
 # Simple Todo App with MongoDB, Express.js and Node.js
 The ToDo app uses the following technologies and javascript libraries:
