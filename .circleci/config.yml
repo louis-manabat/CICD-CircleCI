@@ -32,6 +32,30 @@ jobs:
       - store_test_results:
           path: src/test-results
 
+  sast:
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - checkout
+      - install_deps
+      - run:
+          name: Install SAST Tool and Deps
+          command: |
+            sudo apt update -y
+            sudo apt upgrade -y
+            sudo apt install python3-pip
+            pip3 install nodejsscan
+      - run:
+          name: Running SAST Tool
+          command: |
+            nodejsscan -d . -o src/sast-output.json
+      - store_artifacts:
+        path: src/sast-output.json
+      - run:
+          name: Parse nodejsscan report
+          command: |
+            exit $(cat src/sast-output.json | jq .total_count.sec)
+
   integratation-testing:
     docker:
       - image: circleci/node:lts
@@ -54,6 +78,10 @@ workflows:
   build-and-package:
     jobs:
       - ci-build
-      - integratation-testing:
+      - sast
           requires:
             - ci-build
+      - integratation-testing
+          requires:
+            - ci-build
+            - sast
