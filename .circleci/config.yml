@@ -37,7 +37,6 @@ jobs:
       - image: circleci/node:lts
     steps:
       - checkout
-      - install_deps
       - run:
           name: Install SAST Tool and Deps
           command: |
@@ -51,10 +50,10 @@ jobs:
             nodejsscan -d . -o src/sast-output.json
       - store_artifacts:
           path: src/sast-output.json
-      # - run:
-      #     name: Parse nodejsscan report
-      #     command: |
-      #       exit $(cat src/sast-output.json | jq .total_count.sec)
+      - run:
+          name: Parse nodejsscan report
+          command: |
+            exit $(cat src/sast-output.json | jq .total_count.sec)
 
   integratation-testing:
     docker:
