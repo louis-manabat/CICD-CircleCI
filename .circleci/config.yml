@@ -68,8 +68,7 @@ jobs:
       - run:
           name: Run Integratation Testing
           command: |
-            cd src
-            npm run test-integration
+            npm run test-integration --prefix src/
       - store_test_results:
           path: src/testing-output
 
@@ -82,11 +81,11 @@ jobs:
       - run:
           name: Compile
           command: |
-            npm run build --preifx src/
+            npm run build --prefix src/
       - run:
           name: Packing
           command: |
-            npm pack --preifx src/
+            npm pack --prefix src/
       - store_artifacts:
           path: ./simpletodoapp-1.0.0.tgz
 
