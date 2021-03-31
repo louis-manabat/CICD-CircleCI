@@ -82,11 +82,11 @@ jobs:
       - run:
           name: Compile
           command: |
-            npm run build
+            npm run build --preifx src/
       - run:
           name: Packing
           command: |
-            npm pack
+            npm pack --preifx src/
       - store_artifacts:
           path: ./simpletodoapp-1.0.0.tgz
 
