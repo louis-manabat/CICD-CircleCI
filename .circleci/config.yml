@@ -7,7 +7,6 @@ commands:
           name: Install Deps
           command: |
             npm install --prefix src/
-            mkdir src/test-results
 
 jobs:
   ci-build:
