@@ -6,30 +6,31 @@ commands:
       - run:
           name: Install Deps
           command: |
-            cd src/
-            npm install
+            npm install --prefix src/
 
 jobs:
   ci-build:
     docker:
       - image: circleci/node:lts
     environment:
-      JEST_JUNIT_OUTPUT_DIR: testing-output
+      JEST_JUNIT_OUTPUT_DIR: src/test-results
     steps:
       - checkout
       - install_deps
       - run:
           name: Linting
           command: |
-            cd src
-            npm run test-lint
+            npm run test-lint --prefix src/
       - run:
           name: Unit Tests
           command: |
-            cd src
-            npm run test-unit
+            npm run test-unit --prefix src/ --destination src/test-results
+      - run:
+          name: Code Coverage
+          command: |
+            bash <(curl -s https://codecov.io/bash)
       - store_test_results:
-          path: testing-output
+          path: src/test-results
 
   integratation-testing:
     docker:
