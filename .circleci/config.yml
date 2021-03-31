@@ -81,7 +81,7 @@ jobs:
       - run:
           name: Compile
           command: |
-            npm build --prefix src/
+            npm build src/
       - run:
           name: Packing
           command: |
