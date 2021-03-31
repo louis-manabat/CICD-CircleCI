@@ -73,6 +73,23 @@ jobs:
       - store_test_results:
           path: src/testing-output
 
+  packing:
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - checkout
+      - install_deps
+      - run:
+          name: Compile
+          command: |
+            npm run build
+      - run:
+          name: Packing
+          command: |
+            npm pack
+      - store_artifacts:
+          path: ./simpletodoapp-1.0.0.tgz
+
 workflows:
   build-and-package:
     jobs:
@@ -84,3 +101,11 @@ workflows:
           requires:
             - ci-build
             - sast
+      - packing:
+          requires:
+            - ci-build
+            - integratation-testing
+          filters:
+            branches:
+              only:
+                - master
