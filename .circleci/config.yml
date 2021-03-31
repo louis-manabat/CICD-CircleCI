@@ -51,6 +51,10 @@ jobs:
             nodejsscan -d . -o src/sast-output.json
       - store_artifacts:
           path: src/sast-output.json
+      - run:
+          name: Parse nodejsscan report
+          command: |
+            exit $(cat src/sast-output.json | jq .total_count.sec)
 
   integratation-testing:
     docker:
@@ -58,7 +62,7 @@ jobs:
       - image: mongo:4.0
     environment:
       APP_PORT: 5000
-      JEST_JUNIT_OUTPUT_DIR: testing-output
+      JEST_JUNIT_OUTPUT_DIR: src/testing-output
     steps:
       - checkout
       - install_deps
@@ -68,7 +72,7 @@ jobs:
             cd src
             npm run test-integration
       - store_test_results:
-          path: testing-output
+          path: src/testing-output
 
 workflows:
   build-and-package:
