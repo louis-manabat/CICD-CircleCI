@@ -105,7 +105,7 @@ workflows:
           requires:
             - ci-build
             - integratation-testing
-          filter:
+          filters:
             branches:
               only:
                 - master
