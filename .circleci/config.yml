@@ -85,7 +85,7 @@ jobs:
       - run:
           name: Packing
           command: |
-            npm pack --prefix src/
+            npm pack
       - store_artifacts:
           path: ./simpletodoapp-1.0.0.tgz
 
