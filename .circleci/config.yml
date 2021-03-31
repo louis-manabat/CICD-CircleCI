@@ -48,13 +48,13 @@ jobs:
       - run:
           name: Running SAST Tool
           command: |
-            nodejsscan -d . -o sast-output.json
+            nodejsscan -d . -o src/sast-output.json
       - store_artifacts:
           path: src/sast-output.json
       - run:
           name: Parse nodejsscan report
           command: |
-            exit $(cat sast-output.json | jq .total_count.sec)
+            exit $(cat src/sast-output.json | jq .total_count.sec)
 
   integratation-testing:
     docker:
