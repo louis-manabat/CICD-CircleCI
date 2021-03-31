@@ -1,13 +1,110 @@
 version: 2.1
 
+commands:
+  install_deps:
+    steps:
+      - run:
+          name: Install Deps
+          command: |
+            npm install --prefix src/
+
 jobs:
   ci-build:
     docker:
       - image: circleci/node:lts
+    environment:
+      JEST_JUNIT_OUTPUT_DIR: test-results
     steps:
       - checkout
+      - install_deps
+      - run:
+          name: Linting
+          command: |
+            npm run test-lint --prefix src/
+      - run:
+          name: Unit Tests
+          command: |
+            npm run test-unit --prefix src/ --destination src/test-results
+      - run:
+          name: Code Coverage
+          command: |
+            bash <(curl -s https://codecov.io/bash)
+      - store_test_results:
+          path: src/test-results
+
+  sast:
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - checkout
+      - run:
+          name: Install SAST Tool and Deps
+          command: |
+            sudo apt update -y
+            sudo apt upgrade -y
+            sudo apt install python3-pip
+            pip3 install nodejsscan
+      - run:
+          name: Running SAST Tool
+          command: |
+            nodejsscan -d . -o src/sast-output.json
+      - store_artifacts:
+          path: src/sast-output.json
+      - run:
+          name: Parse nodejsscan report
+          command: |
+            exit $(cat src/sast-output.json | jq .total_count.sec)
+
+  integratation-testing:
+    docker:
+      - image: circleci/node:lts
+      - image: mongo:4.0
+    environment:
+      APP_PORT: 5000
+      JEST_JUNIT_OUTPUT_DIR: testing-output
+    steps:
+      - checkout
+      - install_deps
+      - run:
+          name: Run Integratation Testing
+          command: |
+            npm run test-integration --prefix src/
+      - store_test_results:
+          path: src/testing-output
+
+  packing:
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - checkout
+      - install_deps
+      - run:
+          name: Compile
+          command: |
+            npm build src/
+      - run:
+          name: Packing
+          command: |
+            npm pack src/
+      - store_artifacts:
+          path: ./simpletodoapp-1.0.0.tgz
 
 workflows:
-  build-and-packge:
+  build-and-package:
     jobs:
       - ci-build
+      - sast:
+          requires:
+            - ci-build
+      - integratation-testing:
+          requires:
+            - ci-build
+            - sast
+      - packing:
+          requires:
+            - ci-build
+            - integratation-testing
+          filters:
+            branches:
+              only:
+                - master
